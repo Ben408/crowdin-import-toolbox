@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: crowdin-srx-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - app-data:/app/data
+      - ./strava_help_center_srx.srx:/app/strava_help_center_srx.srx:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  app-dev:
+    build: 
+      context: .
+      target: builder
+    container_name: crowdin-srx-app-dev
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - app-data:/app/data
+      - ./strava_help_center_srx.srx:/app/strava_help_center_srx.srx:ro
+    command: npm run start:dev
+    restart: unless-stopped
+    profiles:
+      - dev
+
+volumes:
+  app-data:
+    driver: local

@@ -1,0 +1,32 @@
+<srx xmlns="http://www.lisa.org/srx20" version="2.0">
+    <header segmentsubflows="yes" cascade="no">
+        <formathandle type="start" include="no"></formathandle>
+        <formathandle type="end" include="yes"></formathandle>
+        <formathandle type="isolated" include="no"></formathandle>
+    </header>
+    <body>
+        <languagerules>
+            <languagerule languagerulename="default">
+
+      <!-- No comments provided for this rule-->
+      
+<rule break="yes">
+          <beforebreak>&lt;/p&gt;</beforebreak>
+          <afterbreak>[\s\S]</afterbreak>
+      </rule>
+      <rule break="yes">
+          <beforebreak>&lt;/h.*?&gt;</beforebreak>
+          <afterbreak>[\s\S]</afterbreak>
+      </rule>
+      <rule break="yes">
+          <beforebreak>&lt;/li&gt;</beforebreak>
+          <afterbreak>[\s\S]</afterbreak>
+      </rule>
+
+            </languagerule>
+        </languagerules>
+        <maprules>
+            <languagemap languagepattern=".*" languagerulename="default"></languagemap>
+        </maprules>
+    </body>
+</srx>

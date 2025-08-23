@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}} - SRX Automation</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{name}}</h1>
+            <p>{{description}}</p>
+        </header>
+        
+        <main>
+            <section class="status-section">
+                <h2>Project Status</h2>
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>SRX Rules</h3>
+                        <p>✅ Loaded and validated</p>
+                        <button onclick="viewSRXRules()">View Rules</button>
+                    </div>
+                    <div class="status-card">
+                        <h3>Parser Configuration</h3>
+                        <p>🔄 Ready for automation</p>
+                        <button onclick="configureParser()">Configure</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="actions-section">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="configureAllProjects()">
+                        Configure All Strava Projects
+                    </button>
+                    <button class="btn-secondary" onclick="checkStatus()">
+                        Check Status
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
