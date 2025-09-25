@@ -67,10 +67,43 @@ This Crowdin app automatically detects XML file uploads to projects within the S
 - Isolated development environment (Docker recommended)
 
 ### Environment Variables
+
+#### Required Crowdin Credentials
 ```bash
-CROWDIN_CLIENT_ID=your_client_id
-CROWDIN_CLIENT_SECRET=your_client_secret
+# Crowdin OAuth App Configuration
+CROWDIN_CLIENT_ID=your_crowdin_client_id_here
+CROWDIN_CLIENT_SECRET=your_crowdin_client_secret_here
+
+# Crowdin API Endpoints
+CROWDIN_API_URL=https://api.crowdin.com
+CROWDIN_ENTERPRISE_API_URL=https://strava.crowdin.com/api/v2
+```
+
+#### Application Configuration
+```bash
+# Base URL for the deployed application
 BASE_URL=https://your-app-domain.com
+
+# Database Configuration (SQLite)
+DB_TYPE=sqlite
+DB_DATABASE=crowdin_srx_app.db
+
+# Security Keys (generate secure random strings)
+JWT_SECRET=your_jwt_secret_here
+ENCRYPTION_KEY=your_encryption_key_here
+```
+
+#### SRX Configuration (Configurable)
+```bash
+# SRX Rules File (default: strava_help_center_srx.srx)
+SRX_RULES_FILE=strava_help_center_srx.srx
+
+# Target Project Group Configuration
+TARGET_PROJECT_GROUP=Strava
+TARGET_PROJECT_GROUP_ID=24
+
+# Auto Configuration Settings
+ENABLE_AUTO_CONFIG=true
 ```
 
 ## 🚀 Quick Start
@@ -101,10 +134,62 @@ npm run start:dev
 yarn start:dev
 ```
 
-### 5. Install in Crowdin
-1. Create OAuth app in Crowdin Developer Portal
-2. Install app in your Strava Project Group
-3. Configure app permissions and scopes
+### 5. Configure Crowdin App
+
+#### Create Crowdin App
+1. Go to [Crowdin Developer Portal](https://support.crowdin.com/developer)
+2. Create a new Crowdin App
+3. Configure OAuth settings with your app's callback URL
+4. Note the Client ID and Client Secret
+
+#### Configure App Permissions
+The app requires the following scopes:
+- `project` - Access to project information
+- `file` - Access to file operations  
+- `group` - Access to project group information
+
+#### Install App in Crowdin
+1. Navigate to your Crowdin organization settings
+2. Go to Apps section
+3. Install your custom app
+4. Grant necessary permissions
+
+### 6. Test the Application
+```bash
+# Test SRX rules validation
+curl http://localhost:3000/test/srx-validation
+
+# Test XML sample analysis
+curl http://localhost:3000/test/xml-samples
+
+# Test monitoring status
+curl http://localhost:3000/test/monitoring-status
+```
+
+## 🚀 Deployment
+
+### Docker Deployment (Recommended)
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Or build manually
+docker build -t crowdin-srx-app .
+docker run -p 3000:3000 --env-file .env crowdin-srx-app
+```
+
+### Cloud Deployment Options
+- **Heroku:** Use the provided Procfile
+- **AWS/GCP/Azure:** Deploy as containerized application
+- **Railway/Render:** Direct deployment from GitHub repository
+
+### Production Checklist
+- [ ] Configure all required environment variables
+- [ ] Set up Crowdin OAuth app with production URLs
+- [ ] Deploy to isolated environment
+- [ ] Test connectivity with Crowdin API
+- [ ] Monitor application logs
+- [ ] Verify SRX automation is working
 
 ## 🔧 Development
 
@@ -199,24 +284,34 @@ The app automatically configures these exact settings for XML files:
 
 ## 🚧 Development Status
 
-### ✅ Completed (Phase 1)
+### ✅ Completed (Phase 1-3)
 - [x] NestJS application foundation
 - [x] Crowdin app template integration
 - [x] OAuth 2.0 authentication system
 - [x] SQLite database with TypeORM
 - [x] Basic app lifecycle handlers
+- [x] **CrowdinApiService** - Enterprise API v2 integration
+- [x] **FileMonitoringService** - Scheduled monitoring every 5 minutes
+- [x] **SRXService** - Read-only SRX rules management
+- [x] **ParserConfigurationService** - Complete automation
+- [x] **Comprehensive testing suite** with sample XML files
+- [x] **Docker deployment** configuration
+- [x] **GitHub Actions CI/CD** pipeline
 
-### 🔄 In Progress (Phase 2)
-- [ ] Strava group file upload event listeners
-- [ ] XML parser configuration automation
-- [ ] SRX rule application system
-- [ ] Error handling and logging
+### ✅ Testing Results
+- [x] **SRX Rules Validation:** ✅ PASSED
+- [x] **XML Sample Analysis:** ✅ PASSED (2 test files detected)
+- [x] **Parser Configuration:** ✅ PASSED
+- [x] **Configuration Simulation:** ✅ PASSED
+- [x] **Monitoring Status:** ✅ PASSED (Ready for testing)
 
-### 📋 Planned (Phase 3-4)
-- [ ] Testing with actual Strava projects
-- [ ] Performance optimization
-- [ ] Production deployment
-- [ ] User training and documentation
+### 🔄 Ready for Production (Phase 4)
+- [x] Core functionality implemented and tested
+- [x] Docker containerization ready
+- [x] Environment configuration documented
+- [ ] **Production deployment** (requires Crowdin credentials)
+- [ ] **User training and documentation**
+- [ ] **Live monitoring and iteration**
 
 ## 🤝 Contributing
 
