@@ -39,7 +39,9 @@ export default () => ({
   
   // SRX Configuration
   srx: {
-    rulesFile: 'strava_help_center_srx.srx',
-    projectGroup: 'Strava',
+    rulesFile: process.env.SRX_RULES_FILE || 'strava_help_center_srx.srx',
+    projectGroup: process.env.TARGET_PROJECT_GROUP || 'Strava',
+    projectGroupId: process.env.TARGET_PROJECT_GROUP_ID || '24',
+    enableAutoConfiguration: process.env.ENABLE_AUTO_CONFIG === 'true' || true,
   },
 });

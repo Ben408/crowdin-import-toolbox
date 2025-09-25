@@ -2,14 +2,19 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ScheduleModule } from '@nestjs/schedule';
+import { HttpModule } from '@nestjs/axios';
 import { join } from 'path';
 
 import { AppController } from './controller/app.controller';
 import { SRXController } from './controller/srx.controller';
+import { FileMonitoringController } from './controller/file-monitoring.controller';
 import { CrowdinCredentialsService } from './service/crowdin-credentials.service';
 import { CryptoService } from './service/crypto.service';
 import { SRXService } from './service/srx.service';
 import { ParserConfigurationService } from './service/parser-configuration.service';
+import { CrowdinApiService } from './service/crowdin-api.service';
+import { FileMonitoringService } from './service/file-monitoring.service';
 import { CrowdinContextGuard } from './guard/crowdin-context.guard';
 import { CrowdinClientGuard } from './guard/crowdin-client.guard';
 import { CrowdinCredentials } from './entity/crowdin-credentials';
@@ -25,7 +30,7 @@ import { TypeOrmConfig } from './config/typeorm-config';
       load: [configuration],
       isGlobal: true,
     }),
-    
+
     // Database
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -37,7 +42,16 @@ import { TypeOrmConfig } from './config/typeorm-config';
       SRXConfiguration,
       ParserConfiguration,
     ]),
-    
+
+    // HTTP Client
+    HttpModule.register({
+      timeout: 10000,
+      maxRedirects: 5,
+    }),
+
+    // Scheduling
+    ScheduleModule.forRoot(),
+
     // Static files
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'resources'),
@@ -47,12 +61,15 @@ import { TypeOrmConfig } from './config/typeorm-config';
   controllers: [
     AppController,
     SRXController,
+    FileMonitoringController,
   ],
   providers: [
     CrowdinCredentialsService,
     CryptoService,
     SRXService,
     ParserConfigurationService,
+    CrowdinApiService,
+    FileMonitoringService,
     CrowdinContextGuard,
     CrowdinClientGuard,
   ],

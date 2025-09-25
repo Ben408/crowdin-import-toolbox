@@ -70,9 +70,75 @@ function checkStatus() {
         });
 }
 
+// Trigger monitoring check
+function triggerMonitoringCheck() {
+    fetch('/monitoring/check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(`Monitoring check completed!\n\nProcessed: ${data.processedFiles} files\nConfigured: ${data.configuredFiles} files\nErrors: ${data.errors.length}`);
+        if (data.errors.length > 0) {
+            console.error('Monitoring errors:', data.errors);
+        }
+        loadMonitoringStatus(); // Refresh status
+    })
+    .catch(error => {
+        console.error('Error triggering monitoring check:', error);
+        alert('Error triggering monitoring check');
+    });
+}
+
+// View projects in the target group
+function viewProjects() {
+    fetch('/monitoring/projects')
+        .then(response => response.json())
+        .then(data => {
+            if (data.projects.length === 0) {
+                alert('No projects found in the target group.');
+                return;
+            }
+            
+            const projectList = data.projects.map(p => `• ${p.name} (ID: ${p.id})`).join('\n');
+            alert(`Projects in ${data.targetGroup} group (${data.totalProjects} total):\n\n${projectList}`);
+        })
+        .catch(error => {
+            console.error('Error fetching projects:', error);
+            alert('Error fetching projects');
+        });
+}
+
+// Load monitoring status
+function loadMonitoringStatus() {
+    fetch('/monitoring/status')
+        .then(response => response.json())
+        .then(data => {
+            const statsDiv = document.getElementById('monitoring-stats');
+            statsDiv.innerHTML = `
+                <div class="monitoring-info">
+                    <p><strong>Status:</strong> ${data.isEnabled ? '✅ Enabled' : '❌ Disabled'}</p>
+                    <p><strong>Target Group:</strong> ${data.stats.targetProjectGroup} (ID: ${data.stats.targetProjectGroupId})</p>
+                    <p><strong>SRX Rules File:</strong> ${data.stats.srxRulesFile}</p>
+                    <p><strong>Auto Configuration:</strong> ${data.stats.autoConfigurationEnabled ? '✅ Enabled' : '❌ Disabled'}</p>
+                    <p><strong>Last Check:</strong> ${new Date(data.lastCheckTime).toLocaleString()}</p>
+                </div>
+            `;
+        })
+        .catch(error => {
+            console.error('Error loading monitoring status:', error);
+            document.getElementById('monitoring-stats').innerHTML = '<p>Error loading monitoring status</p>';
+        });
+}
+
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Crowdin SRX Automation App initialized');
+    
+    // Load monitoring status
+    loadMonitoringStatus();
     
     // Add any initialization logic here
     const statusCards = document.querySelectorAll('.status-card');

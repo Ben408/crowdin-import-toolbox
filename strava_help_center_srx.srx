@@ -7,10 +7,7 @@
     <body>
         <languagerules>
             <languagerule languagerulename="default">
-
-      <!-- No comments provided for this rule-->
-      
-<rule break="yes">
+   <rule break="yes">
           <beforebreak>&lt;/p&gt;</beforebreak>
           <afterbreak>[\s\S]</afterbreak>
       </rule>
@@ -22,7 +19,6 @@
           <beforebreak>&lt;/li&gt;</beforebreak>
           <afterbreak>[\s\S]</afterbreak>
       </rule>
-
             </languagerule>
         </languagerules>
         <maprules>

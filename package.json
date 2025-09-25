@@ -25,6 +25,8 @@
     "@nestjs/config": "^3.0.0",
     "@nestjs/typeorm": "^10.0.0",
     "@nestjs/serve-static": "^4.0.0",
+    "@nestjs/axios": "^3.0.0",
+    "@nestjs/schedule": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.0",
     "rxjs": "^7.8.0",
@@ -33,7 +35,8 @@
     "sqlite3": "^5.1.6",
     "typeorm": "^0.3.17",
     "@crowdin/crowdin-apps-functions": "^0.0.2",
-    "@crowdin/crowdin-api-client": "^1.0.0"
+    "@crowdin/crowdin-api-client": "^1.0.0",
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
