@@ -137,7 +137,11 @@ export class FileMonitoringController {
     configuredFiles: number;
     unconfiguredFiles: string[];
   }> {
-    return await this.parserConfigurationService.getConfigurationStatus(projectId);
+    const status = await this.parserConfigurationService.getConfigurationStatus(projectId);
+    return {
+      projectId,
+      ...status,
+    };
   }
 
   /**

@@ -9,6 +9,7 @@ import { join } from 'path';
 import { AppController } from './controller/app.controller';
 import { SRXController } from './controller/srx.controller';
 import { FileMonitoringController } from './controller/file-monitoring.controller';
+import { TestController } from './controller/test.controller';
 import { CrowdinCredentialsService } from './service/crowdin-credentials.service';
 import { CryptoService } from './service/crypto.service';
 import { SRXService } from './service/srx.service';
@@ -62,6 +63,7 @@ import { TypeOrmConfig } from './config/typeorm-config';
     AppController,
     SRXController,
     FileMonitoringController,
+    TestController,
   ],
   providers: [
     CrowdinCredentialsService,

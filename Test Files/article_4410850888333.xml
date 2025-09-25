@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><article id="4410850888333" section_id="203774437" ><title><![CDATA["Something Went Wrong" Error Message When Logging In]]></title><body><![CDATA[<p><span style="color: #444444;">If you are an iOS user receiving an error message that says "Something Went Wrong" when attempting to log in to the Strava app, this issue may be related to your specific Apple device and email token. Please note that this issue can still occur for athletes who can log in to the Strava website but receive an error message on their iPhone App.</span></p>
+<p><span style="color: #444444;">Unfortunately, we cannot fix this directly from our end. As a workaround, you should be able to access your account on the mobile app via Google Authentication instead of the traditional email and password. Please follow these steps to ensure your Google account is connected to Strava:</span></p>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li>
+<span style="color: #444444;">Open Strava on your PC, ensure you are logged in, and open this page: </span><span class="wysiwyg-underline"><a href="https://www.strava.com/settings/profile" target="_blank" rel="noopener noreferrer">https://www.strava.com/settings/profile</a></span>
+</li>
+<li>
+<span style="color: #444444;">Scroll until you see </span><strong><span style="color: #444444;">"Social Connections"</span></strong><span style="color: #444444;"> on the right side of the screen.</span>
+</li>
+<li>Select the option to <strong style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;"><span style="color: #444444;">“Connect with Google.”</span></strong><span style="color: #444444;"> Follow the prompts to set up that authorization. You will need to create a Gmail account if you do not already have one ready to use.​</span>
+</li>
+</ul>
+</li>
+</ul>
+<p><span style="color: #444444;">Once you have successfully connected Strava to your Google account, open the mobile app and use the </span><strong><span style="color: #444444;">"Continue with Google"</span></strong><span style="color: #444444;"> button on the login screen. Enter the Gmail address associated with your Strava account and follow the authorization prompts.</span></p>
+<p class="wysiwyg-indent3"><img src="https://support.strava.com/hc/article_attachments/21360324255885" alt="Mobile login screen - Google highlight.jpeg" width="261" height="537"></p>
+<p>Please <a href="https://support.strava.com/hc/en-us/articles/216917777-How-do-I-contact-Strava-Support-" target="_blank" rel="noopener noreferrer"><span class="wysiwyg-underline">contact</span></a> our support team if you continue to experience issues logging into your account and provide information to help verify your account.</p>]]></body></article>
