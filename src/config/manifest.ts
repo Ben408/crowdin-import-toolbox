@@ -5,8 +5,10 @@ const config = configuration();
 export default {
   identifier: 'crowdin-srx-automation-app',
   name: 'Crowdin SRX Automation App',
+  description: 'Automatically configure SRX rules and parser settings for XML files in Strava Project Group',
   logo: '/assets/logo.png',
   baseUrl: config.app.baseUrl,
+  version: '1.0.0',
   authentication: {
     type: 'authorization_code',
     clientId: config.crowdin.clientId,
@@ -31,5 +33,10 @@ export default {
         url: '/',
       },
     ],
+  },
+  permissions: {
+    project: ['read', 'write'],
+    projectFile: ['read', 'write'],
+    projectGroup: ['read'],
   },
 };
