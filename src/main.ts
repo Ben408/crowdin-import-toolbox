@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import * as fs from 'fs';
 import * as path from 'path';
+import { join } from 'path';
 
 async function bootstrap() {
   // Ensure data directory exists for SQLite database
@@ -11,7 +13,11 @@ async function bootstrap() {
     console.log('📁 Created data directory for SQLite database');
   }
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  
+  // Configure Handlebars view engine
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
   
   // Enable CORS for Crowdin integration
   app.enableCors({
