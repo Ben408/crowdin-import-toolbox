@@ -51,4 +51,12 @@ export class AppController {
       timestamp: new Date().toISOString(),
     };
   }
+
+  @Get('test')
+  test(): { message: string; timestamp: string } {
+    return {
+      message: 'Crowdin SRX Automation App is working!',
+      timestamp: new Date().toISOString(),
+    };
+  }
 }
