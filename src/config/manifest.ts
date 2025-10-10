@@ -15,7 +15,12 @@ export default {
     installed: '/installed',
     uninstall: '/uninstall',
   },
-  scopes: ['project'],
+  scopes: [
+    'project',
+    'project.file',
+    'project.file.update',
+    'project.group',
+  ],
   modules: {
     integrations: [
       {
