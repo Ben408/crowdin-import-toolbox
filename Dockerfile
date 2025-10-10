@@ -38,6 +38,9 @@ COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
 # Copy SRX rules file (read-only)
 COPY --chown=nestjs:nodejs strava_help_center_srx.srx ./strava_help_center_srx.srx
 
+# Copy views directory
+COPY --chown=nestjs:nodejs views ./views
+
 # Create data directory for SQLite
 RUN mkdir -p /app/data && chown -R nestjs:nodejs /app/data
 
