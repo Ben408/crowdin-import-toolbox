@@ -42,6 +42,7 @@ export default () => ({
     rulesFile: process.env.SRX_RULES_FILE || 'strava_help_center_srx.srx',
     projectGroup: process.env.TARGET_PROJECT_GROUP || 'Strava',
     projectGroupId: process.env.TARGET_PROJECT_GROUP_ID || '24',
+    allowedProjectIds: process.env.TARGET_PROJECT_IDS || '', // Comma-separated list of specific project IDs
     enableAutoConfiguration: process.env.ENABLE_AUTO_CONFIG === 'true' || true,
   },
 });

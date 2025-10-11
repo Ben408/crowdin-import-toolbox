@@ -173,9 +173,16 @@ export class CrowdinApiService {
   /**
    * Monitor for new file uploads in projects (webhook simulation)
    */
-  async checkForNewXMLFiles(groupId: string): Promise<{ projectId: number; fileId: number; fileName: string }[]> {
+  async checkForNewXMLFiles(groupId: string, allowedProjectIds?: string): Promise<{ projectId: number; fileId: number; fileName: string }[]> {
     try {
-      const projects = await this.getProjectsInGroup(groupId);
+      let projects = await this.getProjectsInGroup(groupId);
+      
+      // Filter projects if specific project IDs are allowed
+      if (allowedProjectIds && allowedProjectIds.trim()) {
+        const allowedIds = allowedProjectIds.split(',').map(id => parseInt(id.trim()));
+        projects = projects.filter(project => allowedIds.includes(project.id));
+        this.logger.log(`Filtered to ${projects.length} allowed projects: ${allowedIds.join(', ')}`);
+      }
       const newFiles: { projectId: number; fileId: number; fileName: string }[] = [];
 
       for (const project of projects) {

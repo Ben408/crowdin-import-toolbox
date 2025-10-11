@@ -63,7 +63,16 @@ export class FileMonitoringService {
       this.logger.log('Starting file monitoring check...');
       
       const projectGroupId = this.configService.get('srx.projectGroupId');
-      const newFiles = await this.crowdinApiService.checkForNewXMLFiles(projectGroupId);
+      const allowedProjectIds = this.configService.get('srx.allowedProjectIds');
+      
+      // Check if auto-configuration is enabled
+      const autoConfigEnabled = this.configService.get('srx.enableAutoConfiguration');
+      if (!autoConfigEnabled) {
+        this.logger.log('Auto-configuration is disabled. Skipping file monitoring.');
+        return result;
+      }
+      
+      const newFiles = await this.crowdinApiService.checkForNewXMLFiles(projectGroupId, allowedProjectIds);
       
       result.processedFiles = newFiles.length;
       
